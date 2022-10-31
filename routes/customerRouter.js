@@ -1,24 +1,24 @@
 const express = require("express");
 const db = require("../models");
-const {createHmac}  = require("crypto");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const router = express.Router();
+const {
+  createAccessToken,
+  createRefreshToken,
+  sendAccessToken,
+  sendRefreshToken
+} = require("../token");
 
 require("dotenv").config();
 
 
-const makeHash = (pwd) => {
-  const hash = createHmac("sha256", pwd)
-  .update('I love cupcakes')
-  .digest('hex');
-
-  return hash;
-}
-
-router.post("/signup", async(req, res, next) => {
+/*회원가입 요청 */
+router.post("/signup", async(req, res) => {
   try{
     const {name, email, password} = await req.body;
 
-    const pwdHash = await makeHash(password);
+    const pwdHash = await bcrypt.hash(password, 10);
 
     const [user,created] = await db.Customer.findOrCreate({
       where : { email : email},
