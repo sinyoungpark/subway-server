@@ -28,13 +28,10 @@ router.post("/signup", async(req, res) => {
       }
     });
     
-    if(created){
+    if(!created) throw Error("user already exist");
+    else {
       res.status(201).send({
-        result : "user created"
-      })
-    } else {
-      res.status(409).send({
-        result : "user already exist"
+        result : "회원가입을 축하드립니다."
       });
     }
   } 
@@ -56,20 +53,11 @@ router.post("/login", async(req, res) => {
       }
     });
 
-    if(user === null){
-      res.status(404).json({
-        result : "존재하지 않는 유저입니다."
-      });
-    }
+    if(user === null) throw Error("가입되지 않은 사용자입니다.");
 
     const match = await bcrypt.compare(password, user.password);
 
-    if(!match){
-      res.status(401).json({
-        result : "비밀번호를 잘못 입력하셨습니다."
-      });
-    }
-
+    if(!match) throw Error("비밀번호를 잘못 입력하셨습니다.");
     else{
       //signing token with user id
       const accesstoken = createAccessToken(user.id);
@@ -85,10 +73,13 @@ router.post("/login", async(req, res) => {
     }
   }
   catch(e){
-    console.error(e);
+    res.send({
+      error :  `${e.message}`
+    });
   }
 });
 
+/*로그아웃 */
 router.post("/logout", async(req, res) => {
   res.clearCookie("refreshtoken");
   res.status(200).send({
