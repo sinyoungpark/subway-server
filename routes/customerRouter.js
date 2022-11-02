@@ -1,7 +1,6 @@
 const express = require("express");
 const db = require("../models");
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 const router = express.Router();
 const {
   createAccessToken,
@@ -28,7 +27,7 @@ router.post("/signup", async(req, res) => {
       }
     });
     
-    if(!created) throw Error("user already exist");
+    if(!created) throw Error("이미 사용 중인 이메일입니다.");
     else {
       res.status(201).send({
         result : "회원가입을 축하드립니다."
