@@ -16,15 +16,16 @@ require("dotenv").config();
 /*회원가입 요청 */
 router.post("/signup", async(req, res) => {
   try{
-    const {name, email, password} = await req.body;
+    const {name, email, password, profileImg} = await req.body;
 
     const pwdHash = await bcrypt.hash(password, 10);
 
-    const [user,created] = await db.Customer.findOrCreate({
+    const [user,created] = await db.User.findOrCreate({
       where : { email : email},
       defaults : {
         name : name,
         password : pwdHash,
+        profileImg
       }
     });
     
@@ -47,7 +48,7 @@ router.post("/login", async(req, res) => {
   try{
     const {email, password} = await req.body;
 
-    const user = await db.Customer.findOne({
+    const user = await db.User.findOne({
       where : { 
         email
       }
@@ -63,7 +64,7 @@ router.post("/login", async(req, res) => {
       const accesstoken = createAccessToken(user.id);
       const refreshtoken = createRefreshToken(user.id);
 
-      await db.Customer.update({ refreshtoken }, {
+      await db.User.update({ refreshtoken }, {
         where: {
           id : user.id
         }
