@@ -6,6 +6,7 @@ const { Sequelize, DataTypes, Model } = require("sequelize");
 /*router */
 const customerRouter = require("./routes/customerRouter");
 const recipesRouter = require("./routes/recipesRouter");
+const adRouter = require('./routes/adRouter');
 const rankingRouter = require("./routes/rankingRouter");
 
 
@@ -24,6 +25,7 @@ app.use(express.json());
 
 app.use("/customers", customerRouter);
 app.use("/recipes", recipesRouter);
+app.use("/ad", adRouter);
 app.use("/rankings", rankingRouter);
 
 app.listen(process.env.PORT, async () => {
