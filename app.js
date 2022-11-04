@@ -6,7 +6,7 @@ const { Sequelize, DataTypes, Model } = require("sequelize");
 /*router */
 const customerRouter = require("./routes/customerRouter");
 const recipesRouter = require("./routes/recipesRouter");
-
+const rankingRouter = require("./routes/rankingRouter");
 
 
 const sequelize = new Sequelize(process.env.DATABASE, process.env.DATABASE_USER, process.env.PASSWORD, {
@@ -24,6 +24,7 @@ app.use(express.json());
 
 app.use("/customers", customerRouter);
 app.use("/recipes", recipesRouter);
+app.use("/rankings", rankingRouter);
 
 app.listen(process.env.PORT, async () => {
   console.log(`server running at http://localhost:${process.env.PORT}/`);
