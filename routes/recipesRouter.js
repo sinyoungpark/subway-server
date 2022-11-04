@@ -91,4 +91,29 @@ router.get("/", async (req, res) => {
   }
 });
 
+/*게시글 수정 */
+router.patch("/", async (req, res) => {
+  const {postId, menuId, ingredientId, title, likes} = req.body;
+  try{
+    const userId = isAuth(req);
+    if(userId !== null){
+      const post = await db.Board.findByPk(postId);
+      post.update({
+        menuId,
+        title, 
+        likes
+      });
+
+      res.status(200).send({
+        data : '성공적으로 수정 되었습니다.'
+      });
+    }
+  }
+  catch(e){
+    res.send({
+      error : `${e.meesage}`
+    })
+  }
+});
+
 module.exports = router;
