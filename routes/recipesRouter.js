@@ -116,4 +116,28 @@ router.patch("/", async (req, res) => {
   }
 });
 
+/*게시글 삭제 */
+router.delete("/", async(req,res) => {
+  const {postId} = req.query;
+  try{
+    const userId = isAuth(req);
+    if(userId !== null){
+
+      const post = await db.Board.findOne({
+        where : { id : postId }
+      });
+      await post.destroy();
+
+      res.status(200).send({
+        message : "삭제되었습니다."
+      });
+    }
+  }
+  catch(e){
+    res.send({
+      error : `${req.params}`
+    })
+  }
+})
+
 module.exports = router;
