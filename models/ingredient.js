@@ -7,10 +7,13 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       //재료 한 개는 여러개의 게시글에서 사용할 수 있다. many to many 
       Ingredient.belongsToMany(models.Board, {
-        through : "board_ingredients",
-        foreignKey : 'ingredieintId',
+        through : "Board_Ingredient",
+        foreignKey : 'ingredientId',
         otherKey : 'boardId',
       });
+
+      //board-ingredient
+      Ingredient.hasMany(models.Board_Ingredient);
     }
   }
   Ingredient.init({
