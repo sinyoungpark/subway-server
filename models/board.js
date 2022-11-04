@@ -21,10 +21,12 @@ module.exports = (sequelize, DataTypes) => {
       })
       //게시글 한 개는 여러개의 재료를 가질 수 있다. many to many 
       Board.belongsToMany(models.Ingredient, {
-        through : 'board_ingredients',
+        through : 'Board_Ingredient',
         foreignKey : 'boardId',
         otherKey : 'ingredientId'
       });
+
+      Board.hasMany(models.Board_Ingredient);
     }
   }
   Board.init({
