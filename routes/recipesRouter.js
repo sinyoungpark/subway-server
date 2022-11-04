@@ -77,10 +77,9 @@ router.get("/", async (req, res) => {
         });
       });
 
-      console.log(sendData);
 
-      res.send({
-        message : "okay"
+      res.status(200).send({
+        data : sendData
       })
     }
   }
