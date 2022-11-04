@@ -5,6 +5,7 @@ require("dotenv").config();
 const { Sequelize, DataTypes, Model } = require("sequelize");
 /*router */
 const customerRouter = require("./routes/customerRouter");
+const recipesRouter = require("./routes/recipesRouter");
 
 
 
@@ -22,6 +23,7 @@ app.use(express.json());
 
 
 app.use("/customers", customerRouter);
+app.use("/recipes", recipesRouter);
 
 app.listen(process.env.PORT, async () => {
   console.log(`server running at http://localhost:${process.env.PORT}/`);
