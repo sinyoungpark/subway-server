@@ -1,7 +1,6 @@
 const express = require("express");
 const db = require("../models");
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 const router = express.Router();
 const {
   createAccessToken,
