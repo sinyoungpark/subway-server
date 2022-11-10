@@ -10,6 +10,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       userId: {
+        allowNull: false,
         type: Sequelize.INTEGER,
         onDelete : 'CASCADE',
         references : {
@@ -19,6 +20,7 @@ module.exports = {
         }
       },
       menuId: {
+        allowNull: false,
         type: Sequelize.INTEGER,
         references : {
           model : 'Types',
@@ -27,17 +29,20 @@ module.exports = {
         }
       },
       ingredientId: {
+        allowNull: false,
         type: Sequelize.INTEGER,
         references : {
-          model : 'Ingredieints',
+          model : 'Ingredients',
           key : 'id',
           as : 'ingredientId'
         }
       },
       title: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       likes: {
+        allowNull: false,
         type: Sequelize.INTEGER
       },
       createdAt: {

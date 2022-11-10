@@ -10,9 +10,11 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       ingredientId: {
+        allowNull: false,
         type: Sequelize.INTEGER
       },
       boardId: {
+        allowNull: false,
         type: Sequelize.INTEGER
       },
       createdAt: {
