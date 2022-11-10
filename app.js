@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 
 require("dotenv").config();
 const { Sequelize, DataTypes, Model } = require("sequelize");
@@ -18,10 +19,10 @@ const sequelize = new Sequelize(process.env.DATABASE, process.env.DATABASE_USER,
 const app = express();
 
 app.use(cors({
-  origin : 'http://127.0.0.1:5500'
+  origin : 'http://localhost:3000'
 }));
 app.use(express.json());
-
+app.use(cookieParser());
 
 app.use("/customers", customerRouter);
 app.use("/recipes", recipesRouter);
