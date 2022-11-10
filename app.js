@@ -18,7 +18,7 @@ const sequelize = new Sequelize(process.env.DATABASE, process.env.DATABASE_USER,
 const app = express();
 
 app.use(cors({
-  origin : 'http://127.0.0.1:5500'
+  origin : 'http://localhost:3000'
 }));
 app.use(express.json());
 
