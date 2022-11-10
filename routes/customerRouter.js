@@ -35,7 +35,7 @@ router.post("/signup", async (req, res) => {
       });
     }
   } catch (e) {
-    res.send({
+    res.status(409).send({
       error: `${e.message}`,
     });
   }
@@ -75,7 +75,7 @@ router.post("/login", async (req, res) => {
       sendAccessToken(req, res, accesstoken);
     }
   } catch (e) {
-    res.send({
+    res.status(404).send({
       error: `${e.message}`,
     });
   }
@@ -83,7 +83,9 @@ router.post("/login", async (req, res) => {
 
 /*로그아웃 */
 router.post("/logout", async (req, res) => {
-  res.clearCookie("refreshtoken");
+  res.clearCookie("refreshtoken", {
+    path : "/customers/refresh_token"
+  });
   res.status(200).send({
     result: "logged out",
   });
@@ -93,7 +95,7 @@ router.post("/logout", async (req, res) => {
 router.post("/refresh_token", async (req, res) => {
   const token = req.cookies.refreshtoken;
 
-  if (!token) return res.send({
+  if (!token) return res.status(401).send({
       accesstoken: "",
     });
 
@@ -102,7 +104,7 @@ router.post("/refresh_token", async (req, res) => {
     payload = await verify(token, process.env.REFRESH_TOKEN_SECRET);
   } catch (e) {
     console.log(e);
-    return res.send({
+    return res.status(401).send({
       accesstoken: "",
     });
   }
@@ -114,7 +116,7 @@ router.post("/refresh_token", async (req, res) => {
   });
 
 
-  if (!user) return res.send({ accesstoken: "" });
+  if (!user) return res.status(401).send({ accesstoken: "" });
   if (user.refreshtoken !== token) {
     return res.send({ accesstoken: "" });
   }
