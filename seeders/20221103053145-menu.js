@@ -5,6 +5,7 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     return queryInterface.bulkInsert('Menus', [
       {
+        id : 1,
         typeId : 3, 
         name : '스파이시 바비큐',
         kcal : '374',

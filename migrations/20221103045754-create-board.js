@@ -28,15 +28,6 @@ module.exports = {
           as : 'typeId'
         }
       },
-      ingredientId: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
-        references : {
-          model : 'Ingredients',
-          key : 'id',
-          as : 'ingredientId'
-        }
-      },
       title: {
         allowNull: false,
         type: Sequelize.STRING
