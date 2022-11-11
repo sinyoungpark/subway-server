@@ -32,7 +32,6 @@ module.exports = (sequelize, DataTypes) => {
   Board.init({
     userId: DataTypes.INTEGER,
     menuId: DataTypes.INTEGER,
-    ingredientId: DataTypes.INTEGER,
     title: DataTypes.STRING,
     likes: DataTypes.INTEGER
   }, {
