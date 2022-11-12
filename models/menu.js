@@ -11,9 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       //메뉴 하나는 여러개의 게시물에서 사용될 수 있다. one to many
-      Menu.hasMany(models.Board, {
-        foreignKey : 'menuId'
-      });
+      Menu.belongsTo(models.Type);
     }
   }
   Menu.init({
