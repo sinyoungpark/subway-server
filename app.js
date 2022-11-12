@@ -9,6 +9,7 @@ const customerRouter = require("./routes/customerRouter");
 const recipesRouter = require("./routes/recipesRouter");
 const adRouter = require('./routes/adRouter');
 const rankingRouter = require("./routes/rankingRouter");
+const menuRouter = require("./routes/menuRouter");
 
 
 const sequelize = new Sequelize(process.env.DATABASE, process.env.DATABASE_USER, process.env.PASSWORD, {
@@ -29,6 +30,7 @@ app.use("/customers", customerRouter);
 app.use("/recipes", recipesRouter);
 app.use("/ad", adRouter);
 app.use("/rankings", rankingRouter);
+app.use("/menu", menuRouter)
 
 app.listen(process.env.PORT, async () => {
   console.log(`server running at http://localhost:${process.env.PORT}/`);
