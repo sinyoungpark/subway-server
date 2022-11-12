@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
 
       //board-ingredient
       Ingredient.hasMany(models.Board_Ingredient);
+      Ingredient.belongsTo(models.Type);
     }
   }
   Ingredient.init({
