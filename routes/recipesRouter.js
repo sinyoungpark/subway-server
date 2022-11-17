@@ -50,32 +50,21 @@ router.get("/", async (req, res) => {
         where: {
           userId,
         },
-        include: [db.Menu, db.Ingredient],
-      });
-
-      const sendData = [];
-      postsMenu.forEach((post) => {
-        const { id, likes, Menu, Ingredients } = post;
-        const ingredientsData = [];
-        const ingredientsImg = [];
-
-        Ingredients.forEach((val) => {
-          ingredientsData.push(val.name);
-          ingredientsImg.push(val.img);
-        });
-
-        sendData.push({
-          id,
-          likes,
-          menuImg: Menu.img,
-          menu: Menu.name,
-          ingredients: ingredientsData,
-          ingredientsImg,
-        });
+        attributes : ["id"],
+        // include: [db.Menu, db.Ingredient],
+        include : [{
+          model : db.Menu, 
+          attributes : ["name", "img"]
+        },{
+          model : db.Ingredient,
+          attributes : ["name", "img"]
+        },{
+          model : db.Like,
+        }]
       });
 
       res.status(200).send({
-        data: sendData,
+        data: postsMenu,
       });
     }
   } catch (e) {
