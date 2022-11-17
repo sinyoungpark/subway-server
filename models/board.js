@@ -4,11 +4,6 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Board extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
       /*게시글 한 개는 한 명의 유저만을 갖는다. belongsto*/
       Board.belongsTo(models.User, {
@@ -26,14 +21,20 @@ module.exports = (sequelize, DataTypes) => {
         otherKey : 'ingredientId'
       });
 
+      Board.belongsToMany(models.User, {
+        through : "Like",
+        foreignKey : "boardId",
+        otherKey : 'userId'
+      });
+
       Board.hasMany(models.Board_Ingredient);
+      Board.hasMany(models.Like);
     }
   }
   Board.init({
     userId: DataTypes.INTEGER,
     menuId: DataTypes.INTEGER,
     title: DataTypes.STRING,
-    likes: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Board',
