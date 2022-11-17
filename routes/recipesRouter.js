@@ -1,6 +1,5 @@
 const express = require("express");
 const db = require("../models");
-const jwt = require("jsonwebtoken");
 const router = express.Router();
 const isAuth = require("../isAuth");
 
@@ -8,7 +7,7 @@ require("dotenv").config();
 
 /*게시글 작성*/
 router.post("/", async (req, res) => {
-  const { menuId, ingredientId, title, likes } = req.body;
+  const { menuId, ingredientId, title } = req.body;
 
   try {
     const userId = isAuth(req);
@@ -17,7 +16,6 @@ router.post("/", async (req, res) => {
         userId,
         menuId,
         title,
-        likes,
       });
 
       /*Board-ingredients 테이블 안에 넣기
@@ -104,7 +102,13 @@ router.patch("/", async (req, res) => {
         });
         //좋아요 삭제
         if (userLikes) {
-          await db.Like.destroy(userLikes);
+          console.log(userLikes);
+          await db.Like.destroy({
+            where : {
+              boardId : postId, 
+              userId
+            }
+          });
         } else {
           //Likes에 추가
           await db.Like.create({
