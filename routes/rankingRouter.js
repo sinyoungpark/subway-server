@@ -8,45 +8,33 @@ router.get('/', async(req, res) => {
   try{
     const userId = isAuth(req);
     if(userId !== null){
-
       const rankings = await db.Board.findAll({
-        include : [db.User, db.Menu, db.Ingredient],
+        include : [{
+          model : db.User,
+            attributes : ["name", "profileImg"]
+        },{
+          model : db.Menu,
+          attributes : ["name", "img"]
+        },{
+          model : db.Ingredient,
+          attributes : ["name", "img"]
+        }],
+        attributes : ["id", "title", "likes"],
         order : [
-          ['likes', 'DESC']
+          ['likes', 'DESC'],
         ],
         limit : 10
       });
 
-      const sendData = [];
-
-      rankings.forEach((post) => {
-        const {title, likes, Menu, Ingredients, User} = post;
-
-        const ingredientsData = [];
-        const ingredientsImg = [];
-
-        Ingredients.forEach((val) => {
-          ingredientsData.push(val.name);
-          ingredientsImg.push(val.img);
-        });
-        sendData.push({
-          title, 
-          likes, 
-          menu : Menu.name,
-          menuImg : Menu.img,
-          ingredientsData,
-          ingredientsImg,
-          writer : User.name,
-          writerImg : User.profileImg
-        });
-      })
       res.status(200).send({
-        data : sendData
+        data : rankings
       });
     }
   }
-  catch{
-
+  catch(error){
+    res.send({
+      message : error
+    })
   }
 });
 
