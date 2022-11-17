@@ -35,7 +35,6 @@ module.exports = (sequelize, DataTypes) => {
     userId: DataTypes.INTEGER,
     menuId: DataTypes.INTEGER,
     title: DataTypes.STRING,
-    likes: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Board',
