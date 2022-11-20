@@ -9,7 +9,7 @@ router.get("/sandwich", async (req, res) => {
         model : db.Type,
         attributes : ['type']
       }],
-      attributes : ['name', 'kcal', 'img']
+      attributes : ['name', 'kcal', 'img', 'id']
     });
  
     res.status(200).send({
@@ -30,7 +30,7 @@ router.get("/ingredients", async (req, res) => {
         model : db.Type,
         attributes : ['type']
       }],
-      attributes : ['name', 'kcal', 'img']
+      attributes : ['name', 'kcal', 'img', 'id']
     });
  
     res.status(200).send({
