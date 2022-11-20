@@ -6,19 +6,25 @@ module.exports = {
     return queryInterface.bulkInsert('Types', [
       {
         id : 1,
-        type : '빵',
+        type : '클래식',
         createdAt : new Date(),
         updatedAt : new Date()
       },
       {
         id : 2,
-        type : '야채',
+        type : '프래쉬&라이트',
         createdAt : new Date(),
         updatedAt : new Date()
       },
       {
         id : 3,
-        type : '클래식',
+        type : '프리미엄',
+        createdAt : new Date(),
+        updatedAt : new Date()
+      },
+      {
+        id : 4,
+        type : '신제품',
         createdAt : new Date(),
         updatedAt : new Date()
       }
