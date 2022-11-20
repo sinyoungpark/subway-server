@@ -25,7 +25,7 @@ router.get("/sandwich", async (req, res) => {
 
 router.get("/ingredients", async (req, res) => {
   try {
-    const ingredientsData = await db.Menu.findAll({
+    const ingredientsData = await db.Ingredient.findAll({
       include : [{
         model : db.Type,
         attributes : ['type']
