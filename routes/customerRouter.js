@@ -70,9 +70,8 @@ router.post("/login", async (req, res) => {
           },
         }
       );
-
       sendRefreshToken(res, refreshtoken);
-      sendAccessToken(req, res, accesstoken);
+      sendAccessToken( res, accesstoken, user);
     }
   } catch (e) {
     res.status(404).send({
@@ -134,7 +133,7 @@ router.post("/refresh_token", async (req, res) => {
   );
 
   sendRefreshToken(res, refreshtoken);
-  return res.send({ accesstoken });
+  sendAccessToken(res, accesstoken, user);
 });
 
 module.exports = router;

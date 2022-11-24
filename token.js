@@ -12,17 +12,22 @@ const createRefreshToken = userId => {
   });
 }
 
-const sendAccessToken = (req, res,accesstoken) => {
+const sendAccessToken = (res,accesstoken, user) => {
+  console.log(user);
   res.send({
     accesstoken,
-    email : req.body.email,
+    email : user.email,
+    name : user.name
   });
 }
 
 const sendRefreshToken = (res, refreshtoken) => {
+  console.log(refreshtoken);
   res.cookie("refreshtoken", refreshtoken, {
     httpOnly : true,
-    path : "/customers/refresh_token"
+    path : "/customers/refresh_token",
+    sameSite : "none",
+    secure : true
   });
 }
 
