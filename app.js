@@ -20,8 +20,8 @@ const sequelize = new Sequelize(process.env.DATABASE, process.env.DATABASE_USER,
 const app = express();
 
 app.use(cors({
-  origin : ['my-subway-recipes.site', 'http://localhost:3000'],
-  credentials : true
+  origin : ['http://my-subway-recipes.site', 'http://localhost:3000'],
+  credentials : true,
 }));
 app.use(express.json());
 app.use(cookieParser());
