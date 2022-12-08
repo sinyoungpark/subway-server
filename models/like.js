@@ -7,11 +7,11 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Like.belongsTo(models.Board,{
         foreignKey : "boardId",
-        onDelete : 'CASCADE'
+        onDelete : 'cascade',
       });
       Like.belongsTo(models.User,{
         foreignKey : "userId",
-        onDelete : 'CASCADE'
+        onDelete : 'cascade',
       });
     }
   }

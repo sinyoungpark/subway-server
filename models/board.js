@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
       /*게시글 한 개는 한 명의 유저만을 갖는다. belongsto*/
       Board.belongsTo(models.User, {
         foreignKey : 'userId',
-        onDelete : 'CASCADE'
+        onDelete : 'cascade'
       });
       //게시글 한 개는 하나의 메뉴명을 갖는다. belongsto
       Board.belongsTo(models.Menu,{
@@ -32,6 +32,7 @@ module.exports = (sequelize, DataTypes) => {
       });
       Board.hasMany(models.Like, {
         foreignKey : "boardId",
+        onDelete : 'cascade'
       });
     }
   }
@@ -39,6 +40,7 @@ module.exports = (sequelize, DataTypes) => {
     userId: DataTypes.INTEGER,
     menuId: DataTypes.INTEGER,
     title: DataTypes.STRING,
+    count : DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'Board',
