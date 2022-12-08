@@ -13,7 +13,9 @@ module.exports = (sequelize, DataTypes) => {
         otherKey: "boardId",
       });
 
-      User.hasMany(models.Like);
+      User.hasMany(models.Like,{
+        foreignKey : "userId"
+      });
     }
   }
   User.init(

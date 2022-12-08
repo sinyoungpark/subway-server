@@ -23,12 +23,9 @@ router.get("/", async (req, res) => {
             model: db.Ingredient,
             attributes: ["name", "img"],
           },
-          {
-            model: db.Like,
-          },
         ],
-        attributes : ["title", "id"],
         limit: 10,
+        order : [["count", 'DESC']]
       });
 
       res.status(200).send({
