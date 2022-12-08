@@ -16,6 +16,7 @@ router.post("/", async (req, res) => {
         userId,
         menuId,
         title,
+        count: 0,
       });
 
       /*Board-ingredients 테이블 안에 넣기
@@ -50,17 +51,21 @@ router.get("/", async (req, res) => {
         where: {
           userId,
         },
-        attributes : ["id"],
+        attributes: ["id"],
         // include: [db.Menu, db.Ingredient],
-        include : [{
-          model : db.Menu, 
-          attributes : ["name", "img"]
-        },{
-          model : db.Ingredient,
-          attributes : ["name", "img"]
-        },{
-          model : db.Like,
-        }]
+        include: [
+          {
+            model: db.Menu,
+            attributes: ["name", "img"],
+          },
+          {
+            model: db.Ingredient,
+            attributes: ["name", "img"],
+          },
+          {
+            model: db.Like,
+          },
+        ],
       });
 
       res.status(200).send({
@@ -82,6 +87,7 @@ router.patch("/", async (req, res) => {
     if (userId !== null) {
       const postId = req.query.postId;
       //좋아요 요청
+      const post = await db.Board.findByPk(postId);
       if (postId) {
         const userLikes = await db.Like.findOne({
           where: {
@@ -91,12 +97,14 @@ router.patch("/", async (req, res) => {
         });
         //좋아요 삭제
         if (userLikes) {
-          console.log(userLikes);
           await db.Like.destroy({
-            where : {
-              boardId : postId, 
-              userId
-            }
+            where: {
+              boardId: postId,
+              userId,
+            },
+          });
+          post.update({
+            count: post.count - 1,
           });
         } else {
           //Likes에 추가
@@ -104,14 +112,10 @@ router.patch("/", async (req, res) => {
             boardId: postId,
             userId,
           });
+          post.update({
+            count: post.count + 1,
+          });
         }
-      } else {
-        const post = await db.Board.findByPk(postId);
-        post.update({
-          menuId,
-          title,
-          likes,
-        });
       }
 
       res.status(200).send({
@@ -131,10 +135,13 @@ router.delete("/", async (req, res) => {
   try {
     const userId = isAuth(req);
     if (userId !== null) {
-      const post = await db.Board.findOne({
+      const post = await db.Board.destroy({
         where: { id: postId },
       });
-      await post.destroy();
+
+      const likes = await db.Like.destroy({
+        where: { boardId: postId },
+      });
 
       res.status(200).send({
         message: "삭제되었습니다.",
