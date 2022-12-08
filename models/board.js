@@ -27,8 +27,12 @@ module.exports = (sequelize, DataTypes) => {
         otherKey : 'userId'
       });
 
-      Board.hasMany(models.Board_Ingredient);
-      Board.hasMany(models.Like);
+      Board.hasMany(models.Board_Ingredient, {
+        foreignKey : "boardId",
+      });
+      Board.hasMany(models.Like, {
+        foreignKey : "boardId",
+      });
     }
   }
   Board.init({

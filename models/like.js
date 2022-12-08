@@ -5,8 +5,14 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class Like extends Model {
     static associate(models) {
-      Like.belongsTo(models.Board);
-      Like.belongsTo(models.User);
+      Like.belongsTo(models.Board,{
+        foreignKey : "boardId",
+        onDelete : 'CASCADE'
+      });
+      Like.belongsTo(models.User,{
+        foreignKey : "userId",
+        onDelete : 'CASCADE'
+      });
     }
   }
   Like.init({
