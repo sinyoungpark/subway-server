@@ -28,6 +28,10 @@ module.exports = {
           as : 'typeId'
         }
       },
+      count : {
+        allowNull : false,
+        type: Sequelize.INTEGER,
+      },
       title: {
         allowNull: false,
         type: Sequelize.STRING
