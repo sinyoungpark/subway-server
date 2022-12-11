@@ -35,7 +35,7 @@ router.post("/", async (req, res) => {
       });
     }
   } catch (e) {
-    res.send({
+    res.status(401).send({
       error: `${e.message}`,
     });
   }
@@ -73,7 +73,7 @@ router.get("/", async (req, res) => {
       });
     }
   } catch (e) {
-    res.send({
+    res.status(401).send({
       error: `${e.message}`,
     });
   }
@@ -81,7 +81,6 @@ router.get("/", async (req, res) => {
 
 /*게시글 수정 */
 router.patch("/", async (req, res) => {
-  const { postId, menuId, ingredientId, title, likes } = req.body;
   try {
     const userId = isAuth(req);
     if (userId !== null) {
@@ -123,7 +122,7 @@ router.patch("/", async (req, res) => {
       });
     }
   } catch (e) {
-    res.send({
+    res.status(401).send({
       error: `${e.message}`,
     });
   }
@@ -148,8 +147,8 @@ router.delete("/", async (req, res) => {
       });
     }
   } catch (e) {
-    res.send({
-      error: `${req.params}`,
+    res.status(401).send({
+      error: `${e.message}`,
     });
   }
 });

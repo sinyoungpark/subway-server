@@ -33,7 +33,7 @@ router.get("/", async (req, res) => {
       });
     }
   } catch (error) {
-    res.send({
+    res.status(401).send({
       message: error.message,
     });
   }
